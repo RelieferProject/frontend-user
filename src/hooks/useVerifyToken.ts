@@ -19,7 +19,7 @@ const useVerifyToken = async () => {
   useEffect(() => {
     const generateToken = async () => {
       try {
-        console.log('sign');
+        // console.log('sign');
         const signer = library.getSigner(account);
         const token = await Web3Token.sign((msg) => signer.signMessage(msg), '1d');
         // console.log('success', token);
@@ -33,11 +33,11 @@ const useVerifyToken = async () => {
         // if (token) {
         //   dispatch(SETTOKEN(token));
         // }
-        console.log(library);
+        // console.log(library);
       } catch (err) {
         dispatch(LOGOUT());
         deactivate();
-        console.log('err');
+        // console.log('err');
       }
     };
 
@@ -57,7 +57,7 @@ const useVerifyToken = async () => {
     };
 
     // console.log(typeof library);
-
+    // console.log(account);
     if (account && library) {
       // console.log(account);
       // dispatch(LOGIN(account));

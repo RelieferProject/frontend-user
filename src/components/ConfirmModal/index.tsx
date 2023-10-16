@@ -10,8 +10,8 @@ import ButtonStyled from '@components/ButtonStyled';
 const StyledModalContainer = styled.div`
   z-index: 100;
   .icon {
-    font-size: 4rem;
-    margin: 3rem auto;
+    font-size: 2rem;
+    margin: 0.5rem auto;
     color: #00ff00;
   }
   .icon *{
@@ -66,26 +66,26 @@ const ConfirmModal = () => {
             onClick={onreject}
           />
           <div
-            className={`absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex flex-col justify-between min-w-[40rem] h-[30rem] p-4 rounded-md bg-bg-dark-medium border-2 border-secondary1`}
+            className={`absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex flex-col justify-between w-[80%] md:w-[40rem] h-[20rem] p-4 rounded-md bg-bg-dark-medium border-2 border-secondary1`}
           >
             <div
               onClick={onreject}
-              className="absolute right-3 top-3 text-3xl w-10 h-10 transition-all flex items-center justify-center rounded-md hover:bg-bg-dark-light"
+              className="absolute right-3 top-3 text-xl w-10 h-10 transition-all flex items-center justify-center rounded-md hover:bg-bg-dark-light"
             >
               <AiOutlineClose />
             </div>
-            <h1 className="text-4xl border-b-2 border-bg-dark-light pb-5 my-4 text-white">
+            <h1 className="text-xl border-b-2 border-bg-dark-light pb-5 my-4 text-white">
               {state.title ? state.title : 'Confirmation'}
             </h1>
             <div className="flex flex-col h-full justify-between">
-              <div className="mt-10">
+              <div className="mt-1">
                 {!state.input && (
                   <div className="flex items-center justify-center">
                     <BsCheckCircleFill className="icon" />
                   </div>
                 )}
 
-                {state.text && <div className="text-3xl text-center text-white">{state.text}</div>}
+                {state.text && <div className="text-xl text-center text-white">{state.text}</div>}
 
                 {state.input && (
                   <div className="flex mt-5 w-[90%] mx-auto">
@@ -102,7 +102,7 @@ const ConfirmModal = () => {
 
               <div className="w-full grid grid-cols-2 gap-4">
                 <ButtonStyled
-                  className={`w-full text-3xl ${state.noCancel && 'col-span-2'}`}
+                  className={`w-full text-xl ${state.noCancel && 'col-span-2'}`}
                   onClick={onconfirm}
                   color={'secondary'}
                   disabled={state.input ? value === '' : false}
@@ -110,7 +110,7 @@ const ConfirmModal = () => {
                   Confirm
                 </ButtonStyled>
                 {!state.noCancel && (
-                  <ButtonStyled onClick={onreject} className={`w-full text-3xl`} color={'primary'}>
+                  <ButtonStyled onClick={onreject} className={`w-full text-xl`} color={'primary'}>
                     Cancel
                   </ButtonStyled>
                 )}

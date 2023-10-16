@@ -3,6 +3,8 @@ import { getLocal } from '@utils/localStorage';
 // import { useWallet } from '@binance-chain/bsc-use-wallet';
 import { useWeb3React } from '@web3-react/core';
 import { injected } from '@utils/connectors';
+import getRpcUrl from './getRpcUrl';
+import usePopup from '@hooks/usePopup';
 
 export function useEagerConnect() {
   const { activate, active } = useWeb3React();
@@ -11,6 +13,8 @@ export function useEagerConnect() {
 
   useEffect(() => {
     injected.isAuthorized().then((isAuthorized: boolean) => {
+      // console.log('isAuthorized', isAuthorized);
+      // console.log('getLocal', getLocal('isLogin'));
       if (getLocal('isLogin')) {
         activate(injected).catch((err) => {
           console.log(err);
@@ -90,109 +94,119 @@ interface AddEthereumChainParameter {
 
 declare const window: any;
 
+// export function useSwitchChain() {
+//   useEffect(() => {
+//     try {
+//       const { ethereum } = window;
+//       let Chain = import.meta.env.VITE_APP_CHAIN_ID;
+//       let networkData: [AddEthereumChainParameter];
+//       if (Chain === '97') {
+//         //bsctestnet
+//         networkData = [
+//           {
+//             chainId: '0x61',
+//             chainName: 'BSCTESTNET',
+//             rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545'],
+//             nativeCurrency: {
+//               name: 'BINANCE COIN',
+//               symbol: 'BNB',
+//               decimals: 18,
+//             },
+//             blockExplorerUrls: ['https://testnet.bscscan.com/'],
+//           },
+//         ];
+//         window.ethereum.request({
+//           method: 'wallet_addEthereumChain',
+//           params: networkData,
+//         });
+//       } else {
+//         networkData = [
+//           {
+//             chainId: '0x38',
+//             chainName: 'BSCMAINET',
+//             rpcUrls: ['https://bsc-dataseed1.binance.org'],
+//             nativeCurrency: {
+//               name: 'BINANCE COIN',
+//               symbol: 'BNB',
+//               decimals: 18,
+//             },
+//             blockExplorerUrls: ['https://testnet.bscscan.com/'],
+//           },
+//         ];
+//         window.ethereum.request({
+//           method: 'wallet_addEthereumChain',
+//           params: networkData,
+//         });
+//       }
+//     } catch (err) {
+//       console.error(err);
+//     }
+//   }, []);
+// }
+
+export const switchChainFunction = async () => {
+  let networkData: [AddEthereumChainParameter];
+
+  if (typeof window !== 'undefined' && typeof window.ethereum !== 'undefined') {
+    //bsctestnet
+    networkData = [
+      {
+        chainId: import.meta.env.VITE_APP_CHAIN_ID_HEX,
+        chainName: 'Reliefer Chain',
+        rpcUrls: [import.meta.env.VITE_APP_NODE_1],
+        nativeCurrency: {
+          name: 'BINANCE COIN',
+          symbol: 'BNB',
+          decimals: 18,
+        },
+      },
+    ];
+    return window.ethereum.request({
+      method: 'wallet_addEthereumChain',
+      params: networkData,
+    });
+  }
+};
+
+export const checkMetamask = async () => {
+  return typeof window !== 'undefined' && typeof window.ethereum !== 'undefined';
+};
+
 export function useSwitchChain() {
+  const popup = usePopup();
   useEffect(() => {
     try {
       const { ethereum } = window;
-      let Chain = import.meta.env.VITE_APP_CHAIN_ID;
       let networkData: [AddEthereumChainParameter];
-      if (Chain === '97') {
-        //bsctestnet
-        networkData = [
-          {
-            chainId: '0x61',
-            chainName: 'BSCTESTNET',
-            rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545'],
-            nativeCurrency: {
-              name: 'BINANCE COIN',
-              symbol: 'BNB',
-              decimals: 18,
-            },
-            blockExplorerUrls: ['https://testnet.bscscan.com/'],
+      //bsctestnet
+      networkData = [
+        {
+          // chainId: '0x61',
+          // chainName: 'BSCTESTNET',
+          // rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545'],
+          chainId: import.meta.env.VITE_APP_CHAIN_ID_HEX,
+          chainName: 'Reliefer Chain',
+          rpcUrls: [import.meta.env.VITE_APP_NODE_1],
+          nativeCurrency: {
+            name: 'ETH',
+            symbol: 'ETH',
+            decimals: 18,
           },
-        ];
-        window.ethereum.request({
-          method: 'wallet_addEthereumChain',
-          params: networkData,
-        });
-      } else {
-        networkData = [
-          {
-            chainId: '0x38',
-            chainName: 'BSCMAINET',
-            rpcUrls: ['https://bsc-dataseed1.binance.org'],
-            nativeCurrency: {
-              name: 'BINANCE COIN',
-              symbol: 'BNB',
-              decimals: 18,
-            },
-            blockExplorerUrls: ['https://testnet.bscscan.com/'],
-          },
-        ];
-        window.ethereum.request({
-          method: 'wallet_addEthereumChain',
-          params: networkData,
-        });
-      }
+        },
+      ];
+      window.ethereum.request({
+        method: 'wallet_addEthereumChain',
+        params: networkData,
+      });
     } catch (err) {
       console.error(err);
     }
   }, []);
 }
 
-export const switchChainFunction = async () => {
-  let Chain = import.meta.env.VITE_APP_CHAIN_ID;
-  let networkData: [AddEthereumChainParameter];
-
-  if (typeof window !== 'undefined' && typeof window.ethereum !== 'undefined') {
-    if (Chain === '97') {
-      //bsctestnet
-      networkData = [
-        {
-          chainId: '0x61',
-          chainName: 'BSCTESTNET',
-          rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545'],
-          nativeCurrency: {
-            name: 'BINANCE COIN',
-            symbol: 'BNB',
-            decimals: 18,
-          },
-          blockExplorerUrls: ['https://testnet.bscscan.com/'],
-        },
-      ];
-      return window.ethereum.request({
-        method: 'wallet_addEthereumChain',
-        params: networkData,
-      });
-    } else if (Chain === '56') {
-      networkData = [
-        {
-          chainId: '0x38',
-          chainName: 'BSCMAINET',
-          rpcUrls: ['https://bsc-dataseed1.binance.org'],
-          nativeCurrency: {
-            name: 'BINANCE COIN',
-            symbol: 'BNB',
-            decimals: 18,
-          },
-          blockExplorerUrls: ['https://testnet.bscscan.com/'],
-        },
-      ];
-      return window.ethereum.request({
-        method: 'wallet_addEthereumChain',
-        params: networkData,
-      });
-    }
-  }
-
-  // try {
-  //   await window.ethereum.request({
-  //     method: 'wallet_switchEthereumChain',
-  //     params: [{ chainId: import.meta.env.VITE_APP_CHAIN_ID_HEX }],
-  //   });
-  // } catch (err) {
-  //   console.log('add network');
-  // }
+export const checkChainId = async () => {
+  const { ethereum } = window;
+  return ethereum.chainId === import.meta.env.VITE_APP_CHAIN_ID_HEX;
 };
 
 export const useReconnect = () => {

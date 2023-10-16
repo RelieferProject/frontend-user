@@ -29,14 +29,14 @@ input[type='number'] {
 }
 
 h2 ,p,span{
-  font-size: 1.8rem;
+  /* font-size: 1.8rem; */
 }
 
 html {
   max-width: 100%;
   /* overflow-x: hidden; */
   /* font-size: 64.5%; */
-  font-size: 70%;
+  /* font-size: 70%; */
   scroll-behavior: smooth;
   *{
     color: black;
@@ -60,7 +60,7 @@ html {
 }
 @media (max-width: 1279px)  {
   html {
-    font-size: 64.5%;
+    /* font-size: 64.5%; */
   }
   .enableScroll{
   padding-right: 0;
@@ -76,7 +76,7 @@ html {
 }
 @media (max-width: 767px) {
   html {
-    font-size:100%;
+    /* font-size:100%; */
   }
   .enableScroll{
   padding-right: 0;
@@ -85,7 +85,7 @@ html {
 
 @media (max-width: 639px) {
   html {
-    font-size: 32%;
+    /* font-size: 32%; */
   }
   .enableScroll{
   padding-right: 0;

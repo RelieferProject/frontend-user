@@ -10,6 +10,7 @@ import tw from 'twin.macro';
 import LayoutsHeader from './LayoutsHeader';
 import LayoutsParticle from './LayoutsParticle';
 import LayoutsSidebar from './LayoutsSidebar';
+import { useToken } from '@states/profile/hooks';
 
 interface Props {
   children: React.ReactNode;
@@ -21,17 +22,26 @@ function Layout(props: Props) {
   /* dimming-bg */
   const { active } = useWeb3React();
   const open = useSideBar();
+  const navigate = useNavigate();
+  const token = useToken();
+  const location = useLocation();
+
+  console.log('location', location.pathname);
 
   useEagerConnect();
   useVerifyToken();
   useGetProfile();
   // const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (!active) {
-  //     navigate('/connect');
-  //   }
-  // }, [active]);
+  useEffect(() => {
+    if (!token) {
+      if(['/login', '/chain', '/verify'].includes(location.pathname)) return;
+      navigate('/');
+    } else {
+      if(location.pathname.includes('dashboard')) return;
+      navigate('/dashboard/profile');
+    }
+  }, [active, token]);
 
   // if (!active) {
   //   return (
@@ -43,18 +53,15 @@ function Layout(props: Props) {
   // }
 
   return (
-    <LayoutWrapper className="min-h-screen relative">
-      {/* <LayoutsParticle /> */}
-      <LayoutsHeader />
+    <LayoutWrapper className="relative bg-gray-300">
       <div
-        className={`relative transition-all min-h-screen w-full pt-[7rem] pr-8 ${
-          open ? 'md:pl-[23rem] pl-[8rem]' : 'pl-[8rem]'
-        }`}
+        className={`${
+          !token ? 'bg-white' : 'grass-bg'
+        } w-full min-h-screen max-w-md mx-auto px-screen relative flex flex-col transition-all items-center`}
       >
-        {props.children}
+        {token && <LayoutsSidebar />}
+        <div className="min-h-screen w-full p-4 py-16">{props.children}</div>
       </div>
-      <LayoutsSidebar />
-      {/* <LayoutsSidebar isMobile={true} /> */}
     </LayoutWrapper>
   );
 }

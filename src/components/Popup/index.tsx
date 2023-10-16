@@ -52,7 +52,7 @@ const PopupBar = () => {
             onClick={closeModal}
           />
           <div
-            className={`absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex flex-col justify-between w-[40rem] h-[30rem] p-4 rounded-md bg-bg-dark-medium border-2 border-${popupCtx.tone}1`}
+            className={`absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex flex-col justify-between w-[80%] md:w-[40rem] h-[20rem] p-4 rounded-md bg-bg-dark-medium border-2 border-${popupCtx.tone}1`}
           >
             <div
               onClick={closeModal}
@@ -61,16 +61,16 @@ const PopupBar = () => {
               <AiOutlineClose />
             </div>
             {popupCtx.content.title && (
-              <h1 className="text-4xl border-b-2 border-bg-dark-light pb-3">
+              <h1 className="text-xl border-b-2 border-bg-dark-light pb-3">
                 {popupCtx.content.title}
               </h1>
             )}
             <div>
               {ico[popupCtx.content.type]}
-              <div className="text-3xl text-center text-white">{popupCtx.content.text}</div>
+              <div className="text-xl text-center text-white">{popupCtx.content.text}</div>
             </div>
             <div>
-              <ButtonStyled className="w-full text-3xl" color={popupCtx.tone} onClick={closeModal}>
+              <ButtonStyled className="w-full text-xl" color={popupCtx.tone} onClick={closeModal}>
                 Confirm
               </ButtonStyled>
             </div>

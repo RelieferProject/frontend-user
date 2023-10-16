@@ -2,18 +2,25 @@ import React from 'react';
 import { AiOutlineLoading } from 'react-icons/ai';
 import styled from 'styled-components';
 
+const colorMap = {
+  primary: 'background: linear-gradient(90deg, #5364c9 0%, #64479c 100%);',
+  secondary: 'background: linear-gradient(90deg, #a200ff 0%, #ff7c6e 100%);',
+  yellow: 'background: linear-gradient(90deg, #f9d423 0%, #ff4e50 100%);',
+};
+
 const ButtonStyledWrapper = styled.div<{ theme: string; disabled: boolean }>`
   position: relative;
 
   * {
     color: white;
+    font-size: 1.2rem;
   }
 
   ${({ theme, disabled }) => {
     return !disabled
-      ? theme === 'secondary'
-        ? 'background: linear-gradient(90deg, #5364c9 0%, #64479c 100%);'
-        : 'background: linear-gradient(90deg, #a200ff 0%, #ff7c6e 100%);'
+      ? colorMap[theme]
+        ? colorMap[theme]
+        : colorMap.primary
       : 'background-color: #829aa6;';
   }}
 
@@ -33,7 +40,7 @@ const ButtonStyledWrapper = styled.div<{ theme: string; disabled: boolean }>`
     }
   }
   button {
-    padding: 1rem 0.4rem;
+    padding: 0.4rem 0.4rem;
     position: relative;
   }
   .overlay {
@@ -43,10 +50,11 @@ const ButtonStyledWrapper = styled.div<{ theme: string; disabled: boolean }>`
     transition: all 0.3s ease-in-out;
     transform: translateY(100%);
     ${({ theme, disabled }) => {
+      // console.log('theme', theme);
       return !disabled
-        ? theme === 'secondary'
-          ? 'background: linear-gradient(0deg, #00d3c5 0%, #734ae8 100%);'
-          : 'background: linear-gradient(90deg, #a200ff 0%, #ff7c6e 100%);'
+        ? colorMap[theme]
+          ? colorMap[theme]
+          : colorMap.primary
         : 'background-color: transparent;';
     }}
     ${({ theme }) => {
@@ -85,7 +93,6 @@ function ButtonStyled({
       console.log('enter press here! ');
     }
   };
-
 
   return (
     <ButtonStyledWrapper

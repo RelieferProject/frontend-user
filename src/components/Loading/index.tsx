@@ -1,6 +1,6 @@
 import React from 'react';
-import Lottie from 'lottie-react';
 import LoadingJson from '@assets/lottie/loading.json';
+import ReactLottie from '@components/Base/ReactLottie';
 
 function Loading({ absolute }: { absolute?: boolean }) {
   return (
@@ -9,15 +9,7 @@ function Loading({ absolute }: { absolute?: boolean }) {
         absolute ? 'absolute left-1/2 -translate-x-1/2' : 'relative'
       }`}
     >
-      <Lottie
-        className="w-[15rem]"
-        loop={true}
-        autoplay={true}
-        animationData={LoadingJson}
-        rendererSettings={{
-          preserveAspectRatio: 'xMidYMid slice',
-        }}
-      ></Lottie>
+      <ReactLottie json={LoadingJson}></ReactLottie>
     </div>
   );
 }

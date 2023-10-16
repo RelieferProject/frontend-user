@@ -5,7 +5,18 @@ export const profileSlice = createSlice({
   initialState: {
     account: '',
     token: '',
-    role:'',
+    address: '',
+    createdAt: '',
+    deletedAt: '',
+    email: '',
+    faculty: 'IT',
+    isSendVerify: false,
+    isVerified: false,
+    name: '',
+    role: '',
+    student_id: null,
+    updatedAt: '',
+    isClaimed: true,
   },
   reducers: {
     SETPROFILE: (state, action) => {
@@ -22,7 +33,6 @@ export const profileSlice = createSlice({
       state.account = '';
       state.token = '';
     },
-  
   },
 });
 export default profileSlice.reducer;
