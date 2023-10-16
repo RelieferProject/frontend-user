@@ -1,13 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
-import { AbiItem } from 'web3-utils';
-import { ContractOptions } from 'web3-eth-contract';
-import useWeb3 from './useWeb3';
-
-import useActiveWeb3React from './useActiveWeb3React';
+import {  useMemo } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { Contract } from '@ethersproject/contracts';
 import { getContract } from '@utils';
-import { ethers } from 'ethers';
 import { Web3Provider } from '@ethersproject/providers';
 import { contractAddress } from '@configs/contractAddress';
 

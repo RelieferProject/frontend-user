@@ -3,7 +3,6 @@ import { getLocal } from '@utils/localStorage';
 // import { useWallet } from '@binance-chain/bsc-use-wallet';
 import { useWeb3React } from '@web3-react/core';
 import { injected } from '@utils/connectors';
-import getRpcUrl from './getRpcUrl';
 import usePopup from '@hooks/usePopup';
 
 export function useEagerConnect() {
