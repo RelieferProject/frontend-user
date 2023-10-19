@@ -26,10 +26,10 @@ function Verify(props: Props) {
   const navigate = useNavigate();
 
   const [state, setState] = useState({
-    name: 'xxx',
-    email: 'xx@gmail.com',
-    student_id: '62130500133',
-    faculty: 'CS',
+    name: '',
+    email: '',
+    student_id: '',
+    faculty: '',
   });
 
   const onChange = (e: any) => {
@@ -51,8 +51,8 @@ function Verify(props: Props) {
       popup.loading({ text: 'Loading', disable: true });
       try {
         await validation.register();
-        popup.success({ text: 'Start Campaign Success' });
-        dispatch(increment());
+        // popup.success({ text: 'Start Campaign Success' });
+        // dispatch(increment());
       } catch (error: any) {
         // console.log(Object.keys(error));
         // console.log(error.reason)
@@ -77,7 +77,7 @@ function Verify(props: Props) {
           }
         );
         await popup.success({ text: 'Verify Success' });
-        navigate('/profile');
+        navigate('/dashboard/profile');
       } catch (error: any) {
         // console.log(error);
         popup.error({ text: error.response.data.message || 'Verify Failed' });
