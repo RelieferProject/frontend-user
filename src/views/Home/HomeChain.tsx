@@ -9,7 +9,7 @@ import ReactLottie from '@components/Base/ReactLottie';
 import blockchainLottie from '@assets/lottie/blockchain.json';
 import ButtonStyled from '@components/ButtonStyled';
 import { useWeb3React } from '@web3-react/core';
-import { checkChainId, useSwitchChain } from '@utils/web3Hooks';
+import { checkChainId, switchChainFunction } from '@utils/web3Hooks';
 import { useNavigate } from 'react-router-dom';
 import usePopup from '@hooks/usePopup';
 
@@ -35,6 +35,18 @@ function HomeChain(props: Props) {
     }
   };
 
+  const addnetwork = async () => {
+    try {
+      await switchChainFunction();
+      navigate('/login');
+    } catch (error) {
+      await popup.error({
+        text: 'Please check your network on metamask',
+      });
+      return;
+    }
+  };
+
   return (
     <HomeChainWrapper>
       <div className="flex flex-col items-center min-h-screen justify-center w-full">
@@ -44,29 +56,34 @@ function HomeChain(props: Props) {
         </div>
         <h1 className="my-2 text-xl text-text-purple font-bold">Network Detail</h1>
 
-        <div className='p-6 glass mb-4'>
+        <div className="p-6 glass mb-4">
           <div>
-            <b className='text-lg'>Name :</b>
-            <p className='text-lg'>Reliefer Chain</p>
+            <b className="text-lg">Name :</b>
+            <p className="text-lg">Reliefer Chain</p>
           </div>
           <div>
-            <b className='text-lg'>RPC URL :</b>
-            <p className='text-lg'>{import.meta.env.VITE_APP_NODE_1}</p>
+            <b className="text-lg">RPC URL :</b>
+            <p className="text-lg">{import.meta.env.VITE_APP_NODE_1}</p>
           </div>
           <div>
-            <b className='text-lg'>Chain Id :</b>
-            <p className='text-lg'>{import.meta.env.VITE_APP_CHAIN_ID}</p>
+            <b className="text-lg">Chain Id :</b>
+            <p className="text-lg">{import.meta.env.VITE_APP_CHAIN_ID}</p>
           </div>
           <div>
-            <b className='text-lg'>Currency Symbol :</b>
-            <p className='text-lg'>ETH</p>
+            <b className="text-lg">Currency Symbol :</b>
+            <p className="text-lg">ETH</p>
           </div>
         </div>
 
-
-        <ButtonStyled color={'secondary'} className="w-full text-xl" onClick={doneCheck}>
-          <div className="w-full flex justify-center">Done</div>
+        <ButtonStyled color={'primary'} className="w-full text-xl" onClick={addnetwork}>
+          <div className="w-full flex justify-center">ADD NETWORK TO METAMASK</div>
         </ButtonStyled>
+
+        <div className="my-2"></div>
+
+        {/* <ButtonStyled color={'secondary'} className="w-full text-xl" onClick={doneCheck}>
+          <div className="w-full flex justify-center">Done</div>
+        </ButtonStyled> */}
       </div>
     </HomeChainWrapper>
   );

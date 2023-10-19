@@ -5,6 +5,32 @@ import { useWeb3React } from '@web3-react/core';
 import { injected } from '@utils/connectors';
 import usePopup from '@hooks/usePopup';
 
+interface AddEthereumChainParameter {
+  chainId: string; // A 0x-prefixed hexadecimal string
+  chainName: string;
+  nativeCurrency: {
+    name: string;
+    symbol: string; // 2-6 characters long
+    decimals: 18;
+  };
+  rpcUrls: string[];
+  blockExplorerUrls?: string[];
+  iconUrls?: string[]; // Currently ignored.
+}
+
+const networkData: [AddEthereumChainParameter] = [
+  {
+    chainId: import.meta.env.VITE_APP_CHAIN_ID_HEX,
+    chainName: 'Reliefer Chain',
+    rpcUrls: [import.meta.env.VITE_APP_NODE_1],
+    nativeCurrency: {
+      name: 'BINANCE COIN',
+      symbol: 'BNB',
+      decimals: 18,
+    },
+  },
+];
+
 export function useEagerConnect() {
   const { activate, active } = useWeb3React();
 
@@ -78,19 +104,6 @@ export function useInactiveListener(suppress: boolean = false) {
   }, [active, error, suppress, activate]);
 }
 
-interface AddEthereumChainParameter {
-  chainId: string; // A 0x-prefixed hexadecimal string
-  chainName: string;
-  nativeCurrency: {
-    name: string;
-    symbol: string; // 2-6 characters long
-    decimals: 18;
-  };
-  rpcUrls: string[];
-  blockExplorerUrls?: string[];
-  iconUrls?: string[]; // Currently ignored.
-}
-
 declare const window: any;
 
 // export function useSwitchChain() {
@@ -144,22 +157,9 @@ declare const window: any;
 // }
 
 export const switchChainFunction = async () => {
-  let networkData: [AddEthereumChainParameter];
-
   if (typeof window !== 'undefined' && typeof window.ethereum !== 'undefined') {
     //bsctestnet
-    networkData = [
-      {
-        chainId: import.meta.env.VITE_APP_CHAIN_ID_HEX,
-        chainName: 'Reliefer Chain',
-        rpcUrls: [import.meta.env.VITE_APP_NODE_1],
-        nativeCurrency: {
-          name: 'BINANCE COIN',
-          symbol: 'BNB',
-          decimals: 18,
-        },
-      },
-    ];
+
     return window.ethereum.request({
       method: 'wallet_addEthereumChain',
       params: networkData,
@@ -172,31 +172,10 @@ export const checkMetamask = async () => {
 };
 
 export function useSwitchChain() {
-  const popup = usePopup();
+  // const popup = usePopup();
   useEffect(() => {
     try {
-      const { ethereum } = window;
-      let networkData: [AddEthereumChainParameter];
-      //bsctestnet
-      networkData = [
-        {
-          // chainId: '0x61',
-          // chainName: 'BSCTESTNET',
-          // rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545'],
-          chainId: import.meta.env.VITE_APP_CHAIN_ID_HEX,
-          chainName: 'Reliefer Chain',
-          rpcUrls: [import.meta.env.VITE_APP_NODE_1],
-          nativeCurrency: {
-            name: 'ETH',
-            symbol: 'ETH',
-            decimals: 18,
-          },
-        },
-      ];
-      window.ethereum.request({
-        method: 'wallet_addEthereumChain',
-        params: networkData,
-      });
+      switchChainFunction();
     } catch (err) {
       console.error(err);
     }
