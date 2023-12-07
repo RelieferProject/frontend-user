@@ -95,7 +95,7 @@ function Wallet(props: Props) {
           <FaEthereum className="icon animate-bounce" />
         </div>
         <div className="mt-4 flex justify-between">
-          <h1 className="text-white text-xl font-bold">ETH BALANCE</h1>
+          <h1 className="text-white text-xl font-bold">จำนวน ETH</h1>
           <h1 className="text-white text-xl font-bold">{getEthBalance()}</h1>
         </div>
       </div>
@@ -105,7 +105,7 @@ function Wallet(props: Props) {
           <BaseIcon className="animate-bounce" />
         </div>
         <div className="mt-4 flex justify-between">
-          <h1 className="text-white text-xl font-bold">TOKEN BALANCE</h1>
+          <h1 className="text-white text-xl font-bold">จำนวนเหรียญดิจิตอล Reliefer</h1>
           <h1 className="text-white text-xl font-bold">{relieferBalance}</h1>
         </div>
       </div>

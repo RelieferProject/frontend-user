@@ -1,7 +1,7 @@
 import LayoutsContainer from '@components/Layouts/LayoutsContainer';
 import { useCampaignContract, useFactoryContract } from '@hooks/useContract';
 import { CampaignInterface, useFactoryGetList } from '@hooks/useFactory';
-import { addressParse, parseSecondsToEnglish, parseWeiToEther } from '@utils';
+import { addressParse, parseSecondsToEnglish, parseSecondsToThai, parseWeiToEther } from '@utils';
 import React from 'react';
 import styled from 'styled-components';
 import Image from 'react';
@@ -43,38 +43,38 @@ const CampaignCard = ({ data, own } : { data : CampaignInterface; own? : boolean
   return (
     <CampaignCardWrapper className="flex flex-col gap-4 p-4 pt-6 rounded-md border-2 relative glass w-[30rem]">
       <div>
-        <b className="text-xl mr-2">Name : {}</b>
+        <b className="text-xl mr-2">ชื่อ : {}</b>
         <span className="text-xl">{data.name}</span>
       </div>
       {!own && (
         <div>
-          <b className="text-xl mr-2">Start Time : </b>
+          <b className="text-xl mr-2">เวลาเริ่ม : </b>
           <span className="text-xl">
-            {new Date(+data.startTime).toLocaleDateString()}  :{' '}
-            {new Date(+data.startTime).toLocaleTimeString()}
+            {new Date(+data.startTime).toLocaleDateString('th-TH')}  เวลา {' '}
+            {new Date(+data.startTime).toLocaleTimeString('th-TH')}
           </span>
         </div>
       )}
 
       {!own && (
         <div>
-          <b className="text-xl mr-2">End Time : </b>
+          <b className="text-xl mr-2">เวลาสิ้นสุด : </b>
           <span className="text-xl">
-            {new Date(+data.endTime).toLocaleDateString()}  :{' '}
-            {new Date(+data.endTime).toLocaleTimeString()}
+            {new Date(+data.endTime).toLocaleDateString('th-TH')}  เวลา {' '}
+            {new Date(+data.endTime).toLocaleTimeString('th-TH')}
           </span>
         </div>
       )}
 
       {!own && (
         <div>
-          <b className="text-xl mr-2">Duration : </b>
-          <span className="text-xl">{parseSecondsToEnglish(data.durationToEarn)}</span>
+          <b className="text-xl mr-2">ระยะเวลา : </b>
+          <span className="text-xl">{parseSecondsToThai(data.durationToEarn)}</span>
         </div>
       )}
 
       <div className="flex items-center">
-        <b className="text-xl mr-2">Reward : </b>
+        <b className="text-xl mr-2">รางวัล : </b>
         <div className="flex items-center gap-1">
           <span className="text-xl">{parseWeiToEther(data.rewardTokenAmount.toString())}</span>
           <BaseIcon className="" />
@@ -84,7 +84,7 @@ const CampaignCard = ({ data, own } : { data : CampaignInterface; own? : boolean
       <div className="flex justify-center gap-2">
         <Link className="w-full" to={`/dashboard/campaign/${data.address}`}>
           <ButtonStyled color="yellow" className="text-center w-full">
-            Details
+            รายละเอียด
           </ButtonStyled>
         </Link>
       </div>

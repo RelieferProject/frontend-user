@@ -21,7 +21,7 @@ const OwnCampaignPage = () => {
 
   return (
     <OwnCampaignPageWrapper>
-      <h1 className="text-4xl font-bold text-white">My Campaings</h1>
+      <h1 className="text-3xl mt-4 font-bold text-white">กิจกรรมของฉัน</h1>
       <div className="w-full flex flex-wrap justify-start gap-4 mt-6">
         {filterCampaign(campaignList).map((item, index) => {
           return <CampaignCard data={item} key={item.address} own={true} />;

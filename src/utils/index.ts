@@ -20,8 +20,9 @@ export function getContract(address: string, ABI: any, library: Web3Provider, ac
 }
 
 export function parseWeiToEther(wei: string) {
-  return (+wei / 10 ** 18).toFixed(4);
+  return (+wei / 10 ** 18).toFixed(0);
 }
+
 
 export function parseSecondsToEnglish(seconds) {
   if (isNaN(seconds) || seconds < 0) {
@@ -50,6 +51,38 @@ export function parseSecondsToEnglish(seconds) {
       result += ', and ';
     }
     result += `${remainingSeconds} ${remainingSeconds === 1 ? 'second' : 'seconds'}`;
+  }
+
+  return result;
+}
+
+export function parseSecondsToThai(seconds) {
+  if (isNaN(seconds) || seconds < 0) {
+    return 'Invalid input';
+  }
+
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const remainingSeconds = +(seconds % 60).toFixed(0);
+
+  let result = '';
+
+  if (hours > 0) {
+    result += `${hours} ชั่วโมง`;
+  }
+
+  if (minutes > 0) {
+    if (result.length > 0) {
+      result += ', ';
+    }
+    result += `${minutes} นาที`;
+  }
+
+  if (remainingSeconds > 0) {
+    if (result.length > 0) {
+      result += ', และ ';
+    }
+    result += `${remainingSeconds} วินาที`;
   }
 
   return result;

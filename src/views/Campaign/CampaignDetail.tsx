@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import { StatusCampaignArray, useCampaignByAddress } from '@hooks/useFactory';
 import { Carousel } from 'antd';
 import BaseIcon from '@components/Base/BaseIcon';
-import { parseSecondsToEnglish, parseWeiToEther } from '@utils';
+import { parseSecondsToEnglish, parseSecondsToThai, parseWeiToEther } from '@utils';
 import useConfirm from '@hooks/useConfirm';
 import usePopup from '@hooks/usePopup';
 import { useCampaignContract } from '@hooks/useContract';
@@ -140,7 +140,7 @@ function CampaignDetail(props: Props) {
     if (data.status === 'NOTSTARTED') {
       return (
         <div className="flex text-yellow-300 text-xl font-bold justify-center gap-2">
-          Waiting admin start joining
+          รอแอดมินเปิดรับสมัคร
         </div>
       );
     }
@@ -148,14 +148,14 @@ function CampaignDetail(props: Props) {
       if (data.accountStatus.get_userStatus == 'NOT_JOIN') {
         return (
           <ButtonStyled onClick={user_joinCampaign} color="primary" className="text-center w-full">
-            JOINING
+            เข้าร่วมกิจกรรม
           </ButtonStyled>
         );
       }
       if (data.accountStatus.get_userStatus == 'JOIN') {
         return (
           <div className="flex text-yellow-300 text-xl font-bold justify-center gap-2">
-            Waiting admin end joining
+            รอแอดมินปิดรับสมัคร
           </div>
         );
       }
@@ -164,14 +164,14 @@ function CampaignDetail(props: Props) {
       if (data.accountStatus.get_userStatus == 'JOIN') {
         return (
           <div className="flex text-yellow-300 text-xl font-bold justify-center gap-2">
-            Wait Admin to start campaign (Activity)
+            รอแอดมินเริ่มกิจกรรม
           </div>
         );
       }
       if (data.accountStatus.get_userStatus == 'NOT_JOIN') {
         return (
           <div className="flex text-yellow-300 text-xl font-bold justify-center gap-2">
-            Campaign ended join cannot join
+            กิจกรรมปิดรับสมัครแล้ว
           </div>
         );
       }
@@ -181,14 +181,14 @@ function CampaignDetail(props: Props) {
       if (data.accountStatus.get_userStatus == 'JOIN') {
         return (
           <ButtonStyled onClick={user_startCampaign} color="primary" className="text-center w-full">
-            Start Count duration to earn
+            เข้าร่วมกิจกรรม
           </ButtonStyled>
         );
       }
       if (data.accountStatus.get_userStatus == 'STARTED_CAMPAIGN') {
         return (
           <div className="flex text-yellow-300 text-xl font-bold justify-center gap-2">
-            Wait for campaign end
+            รอกิจกรรมสิ้นสุด
           </div>
         );
       }
@@ -198,14 +198,14 @@ function CampaignDetail(props: Props) {
       if (data.accountStatus.get_userStatus == 'STARTED_CAMPAIGN') {
         return (
           <ButtonStyled onClick={user_endCampaign} color="primary" className="text-center w-full">
-            End Campaign
+            จบกิจกรรม
           </ButtonStyled>
         );
       }
       if (data.accountStatus.get_userStatus == 'END_CAMPAIGN') {
         return (
           <div className="flex text-yellow-300 text-xl font-bold justify-center gap-2">
-            Wait for Admin Calculate Reward
+            รอแอดมินจัดส่งรางวัล
           </div>
         );
       }
@@ -214,7 +214,7 @@ function CampaignDetail(props: Props) {
     if (data.status === 'SUCCESS') {
       return (
         <div className="flex text-yellow-300 text-xl font-bold justify-center gap-2">
-          WAIT ADMIN TO MINT REWARD
+          รอแอดมินจัดส่งรางวัล
         </div>
       );
     }
@@ -223,7 +223,7 @@ function CampaignDetail(props: Props) {
       if (data.accountStatus.get_userStatus == 'CLAIM') {
         return (
           <ButtonStyled onClick={user_claim} color="primary" className="text-center w-full">
-            Claim Reward
+            รับรางวัล
           </ButtonStyled>
         );
       }
@@ -232,7 +232,7 @@ function CampaignDetail(props: Props) {
     if (data.accountStatus.get_userStatus === 'CLAIMED') {
       return (
         <div className="flex text-yellow-300 text-xl font-bold justify-center gap-2 animate-bounce">
-          RECIEVED {(+parseWeiToEther(data.rewardTokenAmount.toString())).toFixed(0)} TOKEN SUCCESS
+          ได้รับรางวัล {(+parseWeiToEther(data.rewardTokenAmount.toString())).toFixed(0)} เหรียญเรียบร้อยแล้ว
           !!!
         </div>
       );
@@ -240,7 +240,7 @@ function CampaignDetail(props: Props) {
 
     return (
       <div className="flex text-red-300 text-xl font-bold justify-center gap-2">
-        CANNOT ACTIVITY IN THIS CAMPAIGN
+        ไม่สามารถเข้าร่วมกิจกรรมได้
       </div>
     );
   };
@@ -271,28 +271,28 @@ function CampaignDetail(props: Props) {
           <hr />
 
           <div className="">
-            <b className="text-lg">Campaign start at </b>
+            <b className="text-lg">เวลาเริ่ม </b>
             <p className="text-lg mt-1">
-              {new Date(+data.startTime).toLocaleDateString()} :{' '}
-              {new Date(+data.startTime).toLocaleTimeString()}
+              {new Date(+data.startTime).toLocaleDateString('th-TH')} เวลา{' '}
+              {new Date(+data.startTime).toLocaleTimeString('th-TH')}
             </p>
           </div>
 
           <div className="">
-            <b className="text-lg">Campaign end at </b>
+            <b className="text-lg">เวลาสิ้นสุด </b>
             <p className="text-lg mt-1">
-              {new Date(+data.endTime).toLocaleDateString()} :{' '}
-              {new Date(+data.endTime).toLocaleTimeString()}
+              {new Date(+data.endTime).toLocaleDateString('th-TH')} เวลา{' '}
+              {new Date(+data.endTime).toLocaleTimeString('th-TH')}
             </p>
           </div>
 
           <div className="">
-            <b className="text-lg">Duration at join campaign </b>
-            <p className="text-lg mt-1">{parseSecondsToEnglish(+data.durationToEarn)}</p>
+            <b className="text-lg">ระยะเวลาเข้าร่วม </b>
+            <p className="text-lg mt-1">{parseSecondsToThai(+data.durationToEarn)}</p>
           </div>
 
           <div className="">
-            <b className="text-lg">Reward: </b>
+            <b className="text-lg">รางวัล </b>
             <div className="flex items-center gap-1">
               <p className="text-lg mt-1">{parseWeiToEther(data.rewardTokenAmount.toString())}</p>
               <BaseIcon className="" />
@@ -317,13 +317,13 @@ function CampaignDetail(props: Props) {
           )}
 
           {profile.isVerified ? (
-            <div className='glass py-4'>
+            <div className="glass py-4">
               <ActionBTN />
             </div>
           ) : (
             <div className="flex justify-center gap-2">
               <ButtonStyled color="yellow" className="text-center w-full">
-                Verify to Join
+                โปรดยืนยันตัวตนก่อนเข้าร่วม
               </ButtonStyled>
             </div>
           )}

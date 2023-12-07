@@ -74,7 +74,7 @@ function HomeLogin(props: Props) {
           <h1 className="mt-2 text-3xl text-text-purple font-bold">Reliefer</h1>
         </div>
         <div className="flex items-center my-4">
-          <h1 className="text-xl text-text-purple font-bold">Login with Metamask Wallet</h1>
+          <h1 className="text-xl text-text-purple font-bold">เข้าสู่ระบบด้วยกระเป๋า Metamask</h1>
 
           <img className="w-[2rem] ml-2" src={metamask} alt="metamask" />
         </div>
@@ -82,7 +82,7 @@ function HomeLogin(props: Props) {
         <ReactLottie json={walletLottie} height={300} width={300} />
 
         <ButtonStyled color={'secondary'} className="w-full text-xl" onClick={onClickConnect}>
-          <div className="flex justify-center">Login</div>
+          <div className="flex justify-center">เข้าสู่ระบบ</div>
         </ButtonStyled>
       </div>
     </HomeLoginWrapper>

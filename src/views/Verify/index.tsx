@@ -89,18 +89,18 @@ function Verify(props: Props) {
     <VerifyWrapper>
       <div className="glass p-6 rounded-lg my-6 flex flex-col gap-2">
         <div className="w-full flex justify-between items-center">
-          <h1 className="text-white text-xl font-bold">✅ Verify ...</h1>
+          <h1 className="text-white text-xl font-bold">👩🏻‍💻 ยืนยันตัวตน</h1>
         </div>
         <InputStyled
           size={'large'}
-          addonBefore={'Name'}
+          addonBefore={'ชื่อ - นามสกุล'}
           name="name"
           value={state.name}
           onChange={onChange}
         />
         <InputStyled
           size={'large'}
-          addonBefore={'Email'}
+          addonBefore={'อีเมล'}
           name="email"
           type="email"
           value={state.email}
@@ -108,7 +108,7 @@ function Verify(props: Props) {
         />
         <InputStyled
           size={'large'}
-          addonBefore={'STUDENT ID'}
+          addonBefore={'รหัสนักศึกษา'}
           name="student_id"
           value={state.student_id}
           type="number"
@@ -116,7 +116,7 @@ function Verify(props: Props) {
         />
         <InputStyled
           size={'large'}
-          addonBefore={'Faculty'}
+          addonBefore={'คณะ'}
           name="faculty"
           value={state.faculty}
           onChange={onChange}
@@ -128,7 +128,7 @@ function Verify(props: Props) {
           onClick={submit}
           className="w-full text-xl"
         >
-          <div className="flex justify-center">SUBMIT</div>
+          <div className="flex justify-center">ยืนยันข้อมูล</div>
         </ButtonStyled>
       </div>
     </VerifyWrapper>

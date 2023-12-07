@@ -13,7 +13,7 @@ export const getRelieferBalance = () => {
   const getBalance = useCallback(async () => {
     if (erc20Contract) {
       const balance = await erc20Contract.balanceOf(account);
-      const balanceParse = (+ethers.utils.formatEther(balance)).toFixed(4);
+      const balanceParse = (+ethers.utils.formatEther(balance)).toFixed(0);
       setBalance(balanceParse);
     }
   }, [account, active, library, count]);

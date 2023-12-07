@@ -22,7 +22,7 @@ const CampaignPage = () => {
 
   return (
     <CampaignPageWrapper>
-      <h1 className="text-4xl font-bold text-white">Select Campaings</h1>
+      <h1 className="text-2xl mt-4 font-bold text-white">กิจกรรมที่สามารถเข้าร่วมได้</h1>
       <div className="w-full flex flex-wrap justify-start gap-4 mt-6">
         {filterCampaign(campaignList).map((item, index) => {
           return <CampaignCard data={item} key={item.address} />;
